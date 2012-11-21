@@ -1,4 +1,4 @@
 /*.rpm
-/fedora/argus-pdp-pep-common.spec
+/fedora/argus-pdp.spec
 /rpmbuild
-/argus-pdp-pep-common
+/argus-pdp
