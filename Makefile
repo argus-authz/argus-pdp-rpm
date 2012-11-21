@@ -17,8 +17,8 @@
 #
 # RPM packaging
 #
-name = argus-pdp-pep-common
-version = 1.4.0
+name = argus-pdp
+version = 1.6.0
 release = 1
 
 git_url = https://github.com/argus-authz/$(name).git
