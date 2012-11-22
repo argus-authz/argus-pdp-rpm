@@ -148,8 +148,8 @@ fi
 %{_localstatedir}/lib/argus/pdp/lib/endorsed/xml-apis-1.3.04.jar
 %{_localstatedir}/lib/argus/pdp/lib/endorsed/xml-resolver-1.2.jar
 %dir %{_localstatedir}/lib/argus/pdp/lib/provided
-%{_localstatedir}/lib/argus/pdp/lib/provided/bcprov-jdk16-1.46.jar
-%{_localstatedir}/lib/argus/pdp/lib/provided/canl-1.1.0-rc2.jar
+%{_localstatedir}/lib/argus/pdp/lib/provided/bcprov-*.jar
+%{_localstatedir}/lib/argus/pdp/lib/provided/canl-*.jar
 %dir %{_localstatedir}/log/argus/pdp
 
 %changelog
