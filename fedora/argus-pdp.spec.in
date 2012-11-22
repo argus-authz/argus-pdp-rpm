@@ -32,7 +32,6 @@ portals, computing elements, storage elements). The service is
 based on the XACML standard, and uses authorization policies to 
 determine if a user is allowed or denied to perform a certain 
 action on a particular service.
-.
 The Argus Authorization Service is composed of three main 
 components:
 - The Policy Administration Point (PAP) provides the tools to 
@@ -62,20 +61,17 @@ make DESTDIR=$RPM_BUILD_ROOT install
 rm -rf $RPM_BUILD_ROOT
 
 %pre
-# on update (1) stop the service, and clean up the lib directory
-if [ $1 -gt 1 ] ; then
+# on install (1): nothing
+# on upgrade (2): stop the service, and clean up the lib directory
+if [ $1 -eq 2 ] ; then
     /sbin/service argus-pdp stop > /dev/null 2>&1 || :
-    # delete all old bundled jar files and links
-    if [ -d /var/lib/argus/pdp/lib ] ; then
-        rm -f /var/lib/argus/pdp/lib/endorsed/*.jar 
-        rm -f /var/lib/argus/pdp/lib/*.jar
-    fi
+    # delete old jar 
+    find /var/lib/argus/pdp/lib -name "*.jar" -exec rm {} \;
 fi
 
 %post
-# create links to /usr/share/java jar files
-build-jar-repository -s -p /var/lib/argus/pdp/lib argus-pdp-pep-common voms-api-java trustmanager bcprov 
-# on install (1) register the service in init.d
+# on install (1): register the service in init.d
+# on upgrade (2): nothing
 if [ $1 -eq 1 ]; then 
     /sbin/chkconfig --add argus-pdp
 fi
@@ -85,22 +81,18 @@ chmod -f 750 %{_datadir}/argus/pdp/sbin/pdpctl
 chmod -f 750 %{_localstatedir}/log/argus/pdp
 
 %preun
-# on uninstall (0) stop and deregister the service
+# on uninstall (0): stop and deregister the service
+# on upgrade (1): nothing
 if [ $1 -eq 0 ] ; then
     /sbin/service argus-pdp stop > /dev/null 2>&1 || :
     /sbin/chkconfig --del argus-pdp
 fi
 
 %postun
-# on update (1) restart the service 
-# on full remove (0) clean up the lib dir
+# on uninstall (0): nothing
+# on upgrade (1): restart the service 
 if [ $1 -eq 1 ] ; then
     /sbin/service argus-pdp start
-elif [ $1 -eq 0 ] ; then
-    # delete all the links created in %post scriptlet
-    if [ -d /var/lib/argus/pdp/lib ] ; then
-        rm -f /var/lib/argus/pdp/lib/*.jar
-    fi
 fi
 
 %files
@@ -128,6 +120,7 @@ fi
 %{_localstatedir}/lib/argus/pdp/lib/commons-collections-3.1.jar
 %{_localstatedir}/lib/argus/pdp/lib/commons-httpclient-3.0.1.jar
 %{_localstatedir}/lib/argus/pdp/lib/commons-lang-2.1.jar
+%{_localstatedir}/lib/argus/pdp/lib/commons-io-1.4.jar
 %{_localstatedir}/lib/argus/pdp/lib/herasaf-xacml-core-1.0.0-M2.jar
 %{_localstatedir}/lib/argus/pdp/lib/ini4j-0.5.2.jar
 %{_localstatedir}/lib/argus/pdp/lib/jcl-over-slf4j-1.5.8.jar
@@ -154,6 +147,9 @@ fi
 %{_localstatedir}/lib/argus/pdp/lib/endorsed/xercesImpl-2.9.1.jar
 %{_localstatedir}/lib/argus/pdp/lib/endorsed/xml-apis-1.3.04.jar
 %{_localstatedir}/lib/argus/pdp/lib/endorsed/xml-resolver-1.2.jar
+%dir %{_localstatedir}/lib/argus/pdp/lib/provided
+%{_localstatedir}/lib/argus/pdp/lib/provided/bcprov-jdk16-1.46.jar
+%{_localstatedir}/lib/argus/pdp/lib/provided/canl-1.1.0-rc2.jar
 %dir %{_localstatedir}/log/argus/pdp
 
 %changelog
