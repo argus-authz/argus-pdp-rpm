@@ -21,11 +21,11 @@ name = argus-pdp
 version = 1.6.0
 release = 1
 
-git_url = https://github.com/argus-authz/$(name).git
-#git_branch = EMI-3
-git_branch = $(version)
+dist_url = http://argus-authz.github.com/$(name)/distrib/$(name)-$(version).tar.gz
 
-dist_url = https://github.com/downloads/argus-authz/$(name)/$(name)-$(version).tar.gz
+git_url = https://github.com/argus-authz/$(name).git
+git_branch = EMI-3
+
 spec_file = fedora/$(name).spec
 rpmbuild_dir = $(CURDIR)/rpmbuild
 
@@ -34,7 +34,6 @@ all: srpm
 clean:
 	@echo "Cleaning..."
 	rm -rf $(rpmbuild_dir) $(spec_file) *.rpm $(name)
-
 
 spec:
 	@echo "Setting version and release in spec file: $(version)-$(release)"
