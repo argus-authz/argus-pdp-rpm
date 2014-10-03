@@ -18,7 +18,7 @@
 # RPM packaging
 #
 name = argus-pdp
-version = 1.6.0
+version = 1.6.1
 release = 1
 
 dist_url = http://argus-authz.github.com/$(name)/distrib/$(name)-$(version).tar.gz
