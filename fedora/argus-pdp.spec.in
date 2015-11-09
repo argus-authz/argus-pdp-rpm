@@ -123,6 +123,7 @@ fi
 %{_localstatedir}/lib/argus/pdp/lib/commons-httpclient-*.jar
 %{_localstatedir}/lib/argus/pdp/lib/commons-io-*.jar
 %{_localstatedir}/lib/argus/pdp/lib/commons-lang-*.jar
+%{_localstatedir}/lib/argus/pdp/lib/esapi-*.jar
 %{_localstatedir}/lib/argus/pdp/lib/herasaf-xacml-core-*.jar
 %{_localstatedir}/lib/argus/pdp/lib/ini4j-*.jar
 %{_localstatedir}/lib/argus/pdp/lib/javax.*.jar
